@@ -3,16 +3,6 @@
         <a href="{% url 'index' %}"> Home </a>
     </li>
 
-{#    {% if request.user.teammember|has_perm:'subject_manager.browse_VIRTUAL' or active_nav == 'subject_manager' %}#}
-{#        <li role="presentation" {% if active_nav == 'subject_manager' %} class="active" {% endif %}>#}
-{#            {% if request.user.teammember|has_perm:'subject_manager.browse_VIRTUAL' %}#}
-{#                <a href="{% url 'subject_manager.browse' %}"> Subject Manager </a>#}
-{#            {% else %}#}
-{#                Subject Manager#}
-{#            {% endif %}#}
-{#        </li>#}
-{#    {% endif %}#}
-
     {% if request.user.is_staff %}
         {# user.is_staff designates whether the user can log into this admin site. #}
         <li role="presentation" {% if active_nav == 'admin' %} class="active" {% endif %}>
