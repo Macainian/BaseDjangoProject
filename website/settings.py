@@ -19,14 +19,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o*4s(hs!!yc3ivt4f)o8%8&tik&hj)#q!&7ey!x&rzjfi4=3jo'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
-ADMINS = (('Alex', 'avyushko@nd.edu'),)
+ADMINS = (('NAME', 'EMAIL'),)
 
 # Application definition
 
@@ -124,7 +124,7 @@ USE_L10N = True
 USE_TZ = True
 
 # SMTP server configuration
-EMAIL_HOST = "smtp.nd.edu"
+EMAIL_HOST = ""
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
 
@@ -204,7 +204,7 @@ LOGIN_REDIRECT_URL = "/"
 SERVER_EMAIL = "django@localhost"
 DEFAULT_FROM_EMAIL = "django@localhost"
 EMAIL_SUBJECT_PREFIX = ""
-MANAGERS = (('Alex', 'avyushko@nd.edu'),)
+MANAGERS = (('NAME', 'EMAIL'),)
 
 
 try:
