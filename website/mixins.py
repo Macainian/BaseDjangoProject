@@ -19,7 +19,7 @@ class LoginRequiredMixin(object):
 class NotificationMixin(object):
     SUCCESS = "alert-success"
     ERROR = "alert-danger"
-    ALERT = "alert"
+    WARNING = "alert-warning"
     INFO = "alert-info"
 
     def set_notification(self, message, alert_type=None):
