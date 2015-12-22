@@ -66,8 +66,8 @@ def create_notification_log(log, log_id, log_type):
 
     button_html_code = \
         '<button type="button" class="accordion-toggle btn ' + str(button_type) + '" data-toggle="collapse" \
-            data-target="#log-' + str(log_id) + '-accordion"> '\
-            + str(log_type) + ' Log (click to show) \
+            data-target="#log-' + str(log_id) + '-accordion"> ' + \
+            str(log_type) + ' Log (click to show) \
         </button>'
 
     log_html_code = ""
@@ -77,8 +77,8 @@ def create_notification_log(log, log_id, log_type):
 
     accordion_html_code = \
         '<div class="accordion-body collapse" id="log-' + str(log_id) + '-accordion"> \
-            <div class="accordion-inner"> \
-                ' + str(log_html_code) + ' \
+            <div class="accordion-inner"> ' + \
+                str(log_html_code) + ' \
             </div> \
         </div>'
 
