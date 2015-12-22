@@ -19,12 +19,12 @@ def notifications(context):
     # Retrieve the session
     try:  # try/except is needed for the server error (500) view to function
         session = context["request"].session
-        if session.__contains__('notifications'):
-            notifications = session.pop('notifications')
-            template_context = Context({'notifications': notifications})
+        if session.__contains__("notifications"):
+            notifications = session.pop("notifications")
+            template_context = Context({"notifications": notifications})
             return notifications_template.render(template_context)
         else:
-            template_context = Context({'notifications': []})
+            template_context = Context({"notifications": []})
             return notifications_template.render(template_context)
     except:
         pass

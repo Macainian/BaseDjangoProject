@@ -17,7 +17,7 @@ def query_string(context):
     :rtype: str
     """
 
-    request = context['request']
+    request = context["request"]
     query_string = request.GET.copy()
 
     return query_string.urlencode()
@@ -38,7 +38,7 @@ def query_string_replace(context, field, value):
     :rtype: str
     """
 
-    request = context['request']
+    request = context["request"]
     query_string = request.GET.copy()
 
     query_string[field] = value
