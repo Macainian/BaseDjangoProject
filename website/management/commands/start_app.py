@@ -127,3 +127,18 @@ class Command(BaseCommand):
 
         # Create init for utils
         open(os.path.join(path_for_utils_folder, self.INIT), "w+").close()
+
+        # Get initial urls.py. The string
+        urls_file_text = \
+"""from django.conf.urls import url
+
+urlpatterns = [
+    # url(r"^example_class_view/$", ExampleClassView.as_view(), name=""" + '"' + app_name + """.example_class_view"),
+    # url(r"^example_function_view/$", example_function_view, name=""" + '"' + app_name + """.example_function_view"),
+    # url(r"^example_parameter_passing/(?P<example_var>\w+)/$", example_view, name=""" + '"' + app_name + """.example_parameter_passing"),
+]"""
+
+        # Create urls.py
+        urls_file = open(os.path.join(app_directory, "urls.py"), "w+")
+        urls_file.write(urls_file_text)
+        urls_file.close()
