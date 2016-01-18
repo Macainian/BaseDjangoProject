@@ -63,7 +63,7 @@ class Command(BaseCommand):
         if not os.path.exists(path_for_templates_folder):
             os.makedirs(path_for_templates_folder)
 
-        # Get initial base.html
+        # Get initial base.html. The string below is specifically formatted this way to ensure that it looks correct on the actual file since we are using """
         templates_base_file_text = \
 """{% extends "base.html" %}
 
