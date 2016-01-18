@@ -117,3 +117,13 @@ class Command(BaseCommand):
 
         # Create temp.js
         open(os.path.join(path_for_js_folder, "temp.js"), "w+").close()
+
+        # Get utils folder
+        path_for_utils_folder = os.path.join(app_directory, "utils")
+
+        # Create utils directory
+        if not os.path.exists(path_for_utils_folder):
+            os.makedirs(path_for_utils_folder)
+
+        # Create init for utils
+        open(os.path.join(path_for_utils_folder, self.INIT), "w+").close()
