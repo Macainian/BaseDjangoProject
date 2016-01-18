@@ -1,6 +1,7 @@
 import os
 
 from django.core.management import BaseCommand, call_command
+from website.settings import BASE_DIR
 
 
 class Command(BaseCommand):
@@ -13,8 +14,7 @@ class Command(BaseCommand):
         app_name = options["app_name"]
 
         # Get app directory
-        base_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-        app_directory = os.path.join(base_directory, "website", "apps", app_name)
+        app_directory = os.path.join(BASE_DIR, "website", "apps", app_name)
 
         # Create app directory
         if not os.path.exists(app_directory):
