@@ -1,6 +1,7 @@
 import os
 
-from django.core.management import BaseCommand, call_command
+from django.core.management.base import BaseCommand
+from django.core.management import call_command
 from website.settings import BASE_DIR
 
 
@@ -9,16 +10,25 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("app_name", type=str)
+        parser.add_argument("app_folder", default=None, nargs="?")
 
     def handle(self, *args, **options):
         app_name = options["app_name"]
+        app_folder_option = options["app_folder"]
+
+        if app_folder_option is None:
+            app_folder = "apps"
+        else:
+            app_folder = app_folder_option
 
         # Get app directory
-        app_directory = os.path.join(BASE_DIR, "website", "apps", app_name)
+        app_directory = os.path.join(BASE_DIR, "website", app_folder, app_name)
 
         # Create app directory
         if not os.path.exists(app_directory):
             os.makedirs(app_directory)
+
+        print("HI")
 
         # Create initial app
         call_command("startapp", app_name, app_directory)
