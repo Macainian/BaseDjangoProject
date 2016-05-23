@@ -157,7 +157,7 @@ urlpatterns = [
         if not os.path.exists(settings_file_path + ".py"):
             print("Settings file was not in \"" + settings_file_path + "\" and the app was not registered")
 
-        # Edit settings file to add the new app
+        # Build up a new settings file into an array
         with open(settings_file_path + ".py", "r") as settings_file:
             have_found_installed_apps_section = False
             app_has_been_added = False
@@ -190,6 +190,6 @@ urlpatterns = [
 
                 new_lines.append(line)
 
+        # Overwrite settings file to add the new app using the array of new_lines
         with open(settings_file_path + ".py", "w") as settings_file:
             settings_file.writelines(new_lines)
-            
