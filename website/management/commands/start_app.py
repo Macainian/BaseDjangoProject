@@ -28,8 +28,6 @@ class Command(BaseCommand):
         if not os.path.exists(app_directory):
             os.makedirs(app_directory)
 
-        print("HI")
-
         # Create initial app
         call_command("startapp", app_name, app_directory)
 
