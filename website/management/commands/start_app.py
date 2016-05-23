@@ -150,3 +150,46 @@ urlpatterns = [
         urls_file = open(os.path.join(app_directory, "urls.py"), "w+")
         urls_file.write(urls_file_text)
         urls_file.close()
+
+        # Get app directory
+        settings_file_path = os.path.join(BASE_DIR, "website", "settings")
+
+        if not os.path.exists(settings_file_path + ".py"):
+            print("Settings file was not in \"" + settings_file_path + "\" and the app was not registered")
+
+        # Edit settings file to add the new app
+        with open(settings_file_path + ".py", "r") as settings_file:
+            have_found_installed_apps_section = False
+            app_has_been_added = False
+            new_lines = []
+            last_non_comment_line = ""
+            last_non_comment_line_index = -1
+
+            for line in settings_file:
+                if not app_has_been_added:
+                    stripped_line = line.strip()
+
+                    if "INSTALLED_APPS" in line:
+                        have_found_installed_apps_section = True
+
+                    if have_found_installed_apps_section:
+                        # If this is not the end of the installed apps section
+                        if stripped_line != ")":
+                            # If this line is not commented out
+                            if not stripped_line.startswith("#"):
+                                last_non_comment_line = line
+                                last_non_comment_line_index = len(new_lines)
+
+                                # If this line does not end with a comma (thus is not ready to accept more apps into the list)
+                                if not stripped_line.endswith(","):
+                                    last_non_comment_line += ","
+                        else:  # If this is the end of the installed apps section
+                            new_lines[last_non_comment_line_index] = last_non_comment_line
+                            new_lines.append("    \"website." + app_folder + "." + app_name + "\",\n")
+                            app_has_been_added = True
+
+                new_lines.append(line)
+
+        with open(settings_file_path + ".py", "w") as settings_file:
+            settings_file.writelines(new_lines)
+            
