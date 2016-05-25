@@ -1,5 +1,3 @@
-# Copyright (C) 2015, University of Notre Dame
-# All rights reserved
 from django.contrib.auth.decorators import login_required
 from website.notification import set_notification as set_website_notification
 

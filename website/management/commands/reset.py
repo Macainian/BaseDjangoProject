@@ -1,5 +1,5 @@
-# Copyright (C) 2016, University of Notre Dame
-# All rights reserved
+# Contributed by Alex Vyushkov
+
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.db import connection

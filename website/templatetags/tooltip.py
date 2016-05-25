@@ -1,5 +1,3 @@
-# Copyright (C) 2015, University of Notre Dame
-# All rights reserved
 from django import template
 register = template.Library()
 

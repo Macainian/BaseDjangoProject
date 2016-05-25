@@ -1,5 +1,3 @@
-# Copyright (C) 2015, University of Notre Dame
-# All rights reserved
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.conf import settings
