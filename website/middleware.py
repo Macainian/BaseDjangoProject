@@ -1,5 +1,3 @@
-# Copyright (C) 2015, University of Notre Dame
-# All rights reserved
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.conf import settings
@@ -24,7 +22,7 @@ class RedirectionMiddleware(object):
 
 EXEMPT_URLS = [compile(settings.LOGIN_URL.lstrip('/'))]
 if hasattr(settings, 'LOGIN_EXEMPT_URLS'):
-    if isinstance(settings.LOGIN_EXEMPT_URLS, (str,unicode)):
+    if isinstance(settings.LOGIN_EXEMPT_URLS, str):
         EXEMPT_URLS.append(compile(settings.LOGIN_EXEMPT_URLS))
     else:
         EXEMPT_URLS += [compile(expr) for expr in settings.LOGIN_EXEMPT_URLS]

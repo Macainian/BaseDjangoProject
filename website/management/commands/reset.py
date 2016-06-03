@@ -1,6 +1,5 @@
-# Copyright (C) 2015, University of Notre Dame
-# All rights reserved
-import os
+# Contributed by Alex Vyushkov
+
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.db import connection
@@ -36,13 +35,13 @@ class Command(BaseCommand):
         cursor = connection.cursor()
 
         if not options["nobackup"]:
-            print "Database backup has not been impelemented yet - skipping"
+            print("Database backup has not been impelemented yet - skipping")
             # result, message = backup("reset", os.environ.get("USER", "unknown"))
             # if not result:
             #     print "Failed to backup the database, %s" % message
             #     return
             # print "Backup complete, filename %s" % message
-        print "Dropping all tables"
+        print("Dropping all tables")
         if engine == "django.db.backends.sqlite3":
             # List of all tables in SQLite database
             cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
@@ -65,9 +64,9 @@ class Command(BaseCommand):
             raise RuntimeError("Unsupported database engine %s" % engine)
 
         if not options["nomigrate"]:
-            print "Running migrate command"
+            print("Running migrate command")
             call_command("migrate")
 
             if not options['nodata']:
-                print "Populating database with fake data is not implemented yet, skipping"
+                print("Populating database with fake data is not implemented yet, skipping")
                 # create_specs_and_files(None)

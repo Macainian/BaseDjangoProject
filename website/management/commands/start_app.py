@@ -1,6 +1,7 @@
 import os
 
-from django.core.management import BaseCommand, call_command
+from django.core.management.base import BaseCommand
+from django.core.management import call_command
 from website.settings import BASE_DIR
 
 
@@ -9,12 +10,19 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("app_name", type=str)
+        parser.add_argument("app_folder", default=None, nargs="?")
 
     def handle(self, *args, **options):
         app_name = options["app_name"]
+        app_folder_option = options["app_folder"]
+
+        if app_folder_option is None:
+            app_folder = "apps"
+        else:
+            app_folder = app_folder_option
 
         # Get app directory
-        app_directory = os.path.join(BASE_DIR, "website", "apps", app_name)
+        app_directory = os.path.join(BASE_DIR, "website", app_folder, app_name)
 
         # Create app directory
         if not os.path.exists(app_directory):
@@ -142,3 +150,46 @@ urlpatterns = [
         urls_file = open(os.path.join(app_directory, "urls.py"), "w+")
         urls_file.write(urls_file_text)
         urls_file.close()
+
+        # Get app directory
+        settings_file_path = os.path.join(BASE_DIR, "website", "settings")
+
+        if not os.path.exists(settings_file_path + ".py"):
+            print("Settings file was not in \"" + settings_file_path + "\" and the app was not registered")
+
+        # Build up a new settings file into an array
+        with open(settings_file_path + ".py", "r") as settings_file:
+            have_found_installed_apps_section = False
+            app_has_been_added = False
+            new_lines = []
+            last_non_comment_line = ""
+            last_non_comment_line_index = -1
+
+            for line in settings_file:
+                if not app_has_been_added:
+                    stripped_line = line.strip()
+
+                    if "INSTALLED_APPS" in line:
+                        have_found_installed_apps_section = True
+
+                    if have_found_installed_apps_section:
+                        # If this is not the end of the installed apps section
+                        if stripped_line != ")":
+                            # If this line is not commented out
+                            if not stripped_line.startswith("#"):
+                                last_non_comment_line = line
+                                last_non_comment_line_index = len(new_lines)
+
+                                # If this line does not end with a comma (thus is not ready to accept more apps into the list)
+                                if not stripped_line.endswith(","):
+                                    last_non_comment_line += ","
+                        else:  # If this is the end of the installed apps section
+                            new_lines[last_non_comment_line_index] = last_non_comment_line
+                            new_lines.append("    \"website." + app_folder + "." + app_name + "\",\n")
+                            app_has_been_added = True
+
+                new_lines.append(line)
+
+        # Overwrite settings file to add the new app using the array of new_lines
+        with open(settings_file_path + ".py", "w") as settings_file:
+            settings_file.writelines(new_lines)

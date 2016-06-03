@@ -1,6 +1,3 @@
-# Copyright (C) 2015, University of Notre Dame
-# All rights reserved
-
 from django.core.signals import request_finished
 from django.dispatch import receiver
 from registration.signals import user_activated

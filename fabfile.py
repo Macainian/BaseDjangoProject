@@ -1,6 +1,3 @@
-# Copyright (C) 2015, University of Notre Dame
-# All rights reserved
-
 from fabric.api import local, sudo
 
 def update():
