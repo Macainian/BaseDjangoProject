@@ -58,3 +58,5 @@ target/
 
 # Pycharm project files
 .idea
+
+settings_local.py

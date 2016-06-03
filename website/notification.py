@@ -39,7 +39,7 @@ def set_notification(session, message, alert_type):
     if isinstance(session, HttpRequest):
         session = session.session
     else:
-        warnings.warn("Using Django session variable is depricated, pass HttpRequest object to set_notification function instead", RuntimeWarning)  # noqa
+        warnings.warn("Using Django session variable is deprecated, pass HttpRequest object to set_notification function instead", RuntimeWarning)  # noqa
 
     if not session.__contains__("notifications"):
         session["notifications"] = []
