@@ -1,7 +1,7 @@
-Django==1.9.6
-requests==2.10.0 # requests library is required for pyqualtrics module
+Django==1.10.1
 django-bootstrap3==7.0.1
 django-registration-redux==1.4
-pytz==2016.4
-django-crontab==0.6.0
-selenium
+django-crontab==0.7.1
+
+requests==2.11.1
+pytz==2016.6.1
