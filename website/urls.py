@@ -12,8 +12,8 @@ urlpatterns = [
     # robots.txt is implemented as a template because Django can't seem to serve a static file from urls.py
     url(r"^robots.txt$", TemplateView.as_view(template_name="robots.txt")),
 
-    # url(r"^auth/login/$", views.login, name="login"),
-    # url(r"^auth/logout/$", views.logout, name="logout"),
+    url(r"^auth/login/$", views.login, name="login"),
+    url(r"^auth/logout/$", views.logout, name="logout"),
     # Using post_change_redirect to reset teammember.generated_password after the first login
     # (in website.save_team_member view)
     url(r"^auth/password_change/$", views.password_change, name="password_change",
