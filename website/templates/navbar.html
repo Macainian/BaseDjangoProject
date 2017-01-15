@@ -11,6 +11,10 @@
         <a href="{% url 'staff_member_manager.browse' %}">Staff Member Manager</a>
     </li>
 
+    <li role="presentation" {% if active_nav == "email_manager" %} class="active" {% endif %}>
+        <a href="{% url 'email_manager.browse' %}">Email Manager</a>
+    </li>
+
     {% if request.user.is_staff %}
         {# user.is_staff designates whether the user can log into this admin site. #}
         <li role="presentation" {% if active_nav == "admin" %} class="active" {% endif %}>
