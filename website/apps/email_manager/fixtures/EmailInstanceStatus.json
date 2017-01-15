@@ -1,78 +1,78 @@
 [
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T07:58:15.136Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T07:58:15.136Z",
             "name": "Email Instance Failed",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailinstancestatus",
         "pk": 1
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T07:58:35.433Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T07:58:35.433Z",
             "name": "Email Instance Sent",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailinstancestatus",
         "pk": 2
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T07:59:03.348Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T07:59:03.348Z",
             "name": "Email Instance Opened",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailinstancestatus",
         "pk": 3
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T07:59:40.200Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T07:59:40.200Z",
             "name": "Email Instance Link Clicked",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailinstancestatus",
         "pk": 4
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T08:00:08.733Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T08:00:08.733Z",
             "name": "Email Instance Action Taken",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailinstancestatus",
         "pk": 5
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-06T08:58:19.205Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-06T08:58:19.205Z",
             "name": "Pending Email Instance Send",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailinstancestatus",
         "pk": 6

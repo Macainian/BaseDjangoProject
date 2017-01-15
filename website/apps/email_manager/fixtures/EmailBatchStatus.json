@@ -1,52 +1,52 @@
 [
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T03:18:27.341Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T03:18:27.341Z",
             "name": "Pending Email Batch Send",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailbatchstatus",
         "pk": 1
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T05:06:10.622Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T05:06:10.622Z",
             "name": "Email Batch Failed",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailbatchstatus",
         "pk": 2
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T05:06:27.656Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T05:06:27.656Z",
             "name": "Email Batch Sent Partially",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailbatchstatus",
         "pk": 3
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T07:57:38.976Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T07:57:38.976Z",
             "name": "Email Batch Sent Completely",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailbatchstatus",
         "pk": 4

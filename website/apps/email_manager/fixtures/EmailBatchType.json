@@ -1,52 +1,52 @@
 [
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T02:44:11.701Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T02:44:11.701Z",
             "name": "New User Registration",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailbatchtype",
         "pk": 1
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T02:44:28.419Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T02:44:28.419Z",
             "name": "Forgot Password",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailbatchtype",
         "pk": 2
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T02:51:28.307Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T02:51:28.307Z",
             "name": "Forgot Username",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailbatchtype",
         "pk": 3
     },
     {
         "fields": {
-            "created_by": 2,
+            "created_by": 1,
             "creation_datetime": "2016-11-05T02:52:00.267Z",
             "deletion_datetime": null,
             "is_deleted": false,
             "last_modified_datetime": "2016-11-05T02:52:00.267Z",
             "name": "New Staff Member Invitation",
-            "updated_by": 2
+            "updated_by": 1
         },
         "model": "email_manager.emailbatchtype",
         "pk": 4
