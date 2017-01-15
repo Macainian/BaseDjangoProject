@@ -1,0 +1,37 @@
+{% load bootstrap3 %}
+
+<div id="copy-email-batch-template-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> {% bootstrap_icon "folder-open" %} &nbsp; Copy Email Batch Template</h4>
+            </div>
+
+            <div class="modal-body">
+                <p id="copy-email-batch-template-warning-message-p" style="display: none;">
+                    There are unsaved changes to the current email batch template. By pressing "Copy", these changes
+                    will be lost on the original email batch template and will not be on the new email batch template
+                    either. If you would like to save those changes, please cancel and save those changes before
+                    copying.
+                </p>
+
+                <p>
+                    New Email Batch Template Name:
+                    <input class="form-control" type="text" id="new-email-batch-template-name-text" />
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"
+                    onclick="copy_email_batch_template('{% url "email_manager.copy_email_batch_template" email_batch_template_id=0 %}')">
+                    {% bootstrap_icon "duplicate" %} Copy
+                </button>
+
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    {% bootstrap_icon "ban-circle" %} Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

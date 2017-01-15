@@ -1,0 +1,2 @@
+class AccountCreationError(Exception):
+    pass

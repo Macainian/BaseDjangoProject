@@ -1,11 +1,19 @@
 <ul class="nav nav-pills">
-    <li role="presentation" {% if active_nav == 'home' %} class="active" {% endif %}>
+    <li role="presentation" {% if active_nav == "home" %} class="active" {% endif %}>
         <a href="{% url 'index' %}"> Home </a>
+    </li>
+
+    <li role="presentation" {% if active_nav == "account_manager" %} class="active" {% endif %}>
+        <a href="{% url 'account_manager.browse' %}">Account Manager</a>
+    </li>
+
+    <li role="presentation" {% if active_nav == "staff_member_manager" %} class="active" {% endif %}>
+        <a href="{% url 'staff_member_manager.browse' %}">Staff Member Manager</a>
     </li>
 
     {% if request.user.is_staff %}
         {# user.is_staff designates whether the user can log into this admin site. #}
-        <li role="presentation" {% if active_nav == 'admin' %} class="active" {% endif %}>
+        <li role="presentation" {% if active_nav == "admin" %} class="active" {% endif %}>
             <a href="/admin"> Admin </a>
         </li>
     {% endif %}

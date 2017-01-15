@@ -11,6 +11,7 @@ class LoginRequiredMixin(object):
     def as_view(cls, **initkwargs):
         # Ignore PyCharm warning below, this is a Mixin class after all
         view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+
         return login_required(view)
 
 
@@ -23,5 +24,6 @@ class NotificationMixin(object):
     def set_notification(self, message, alert_type=None):
         if alert_type is None:
             alert_type = NotificationMixin.INFO
+
         # Ignore PyCharm warning below, this is a Mixin class after all
         set_website_notification(self.request.session, message, alert_type)

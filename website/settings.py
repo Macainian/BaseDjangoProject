@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from website.global_definitions import ServerType
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -42,6 +44,11 @@ INSTALLED_APPS = (
     "bootstrap3",
     # "registration",
     "website",
+    "website.apps.search_filter_sort",
+    "website.apps.address",
+    "website.apps.email_manager",
+    "website.apps.staff_member_manager",
+    "website.apps.account_manager",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,6 +63,16 @@ MIDDLEWARE_CLASSES = (
     "website.middleware.RedirectionMiddleware",
     "website.middleware.LoginRequiredMiddleware",
 )
+
+
+# The list of authentication backends
+# https://docs.djangoproject.com/en/1.10/topics/auth/customizing/#specifying-authentication-backends
+AUTHENTICATION_BACKENDS = [
+    # "django.contrib.auth.backends.ModelBackend",  # default Django backend
+    "website.auth_backends.EmailAuthBackend",
+    "website.auth_backends.CaseInsensitiveUsernameAuthBackend",
+]
+
 
 ROOT_URLCONF = "website.urls"
 
@@ -112,24 +129,17 @@ DATABASES = {
     }
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_L10N = True
 
+
+# Timezone
+TIME_ZONE = "UTC"
 USE_TZ = True
 
-# SMTP server configuration
-EMAIL_HOST = ""
-EMAIL_PORT = 25
-EMAIL_USE_TLS = True
 
 # Your project will probably also have static assets that aren't tied to a particular app. In addition to using
 # a static/ directory inside your apps, you can define a list of directories (STATICFILES_DIRS) in your settings
@@ -150,9 +160,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "apache", "static")
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT = os.path.join(BASE_DIR, "website", "media")
-
-LOGIN_URL = "/auth/login/"
-LOGOUT_URL = "/auth/logout/?next=/"
 
 # Django logging configuration
 # https://docs.djangoproject.com/en/1.8/topics/logging/
@@ -201,19 +208,67 @@ DATABASE_MANAGER_DIR = os.path.join(MEDIA_ROOT, "databases")
 ACCOUNT_ACTIVATION_DAYS = 7
 
 
-LOGIN_EXEMPT_URLS = ["/auth", "password_reset", "reset/"]
+# Login stuff
+LOGIN_EXEMPT_URLS = [".*auth/.*", "password_reset", "reset/", ".*/no_login/.*", ".*/login/.*"]
 LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/auth/login/"
+LOGOUT_URL = "/auth/logout/?next=/"
+API_KEY = "abc123"
 
-SERVER_EMAIL = "django@localhost"
+
+# Email stuff
+DISABLE_SEND_HTML_EMAIL = False
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.sparkpostmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = False
+EMAIL_HOST_USER = "SMTP_Injection"
+EMAIL_HOST_PASSWORD = ""
 DEFAULT_FROM_EMAIL = "django@localhost"
-EMAIL_SUBJECT_PREFIX = ""
 MANAGERS = (("NAME", "EMAIL"),)
+NON_PREFIXED_SITE_URL = "127.0.0.1:8000"
+SITE_URL = "http://" + NON_PREFIXED_SITE_URL
+
+
+SERVER_TYPE = ServerType.DEV
+
+
+# START SEARCH FILTER SORT MODEL MODULES
+WEBSITE_MODELS_MODULE_PATH = "website.models"
+APPS_SEARCH_FILTER_SORT_MODELS_MODULE_PATH = "website.apps.search_filter_sort.models"
+APPS_ADDRESS_MODELS_MODULE_PATH = "website.apps.address.models"
+APPS_EMAIL_MANAGER_MODELS_MODULE_PATH = "website.apps.email_manager.models"
+APPS_STAFF_MEMBER_MANAGER_MODELS_MODULE_PATH = "website.apps.staff_member_manager.models"
+APPS_ACCOUNT_MANAGER_MODELS_MODULE_PATH = "website.apps.account_manager.models"
+# END SEARCH FILTER SORT MODEL MODULES
+
+
+APP_MODELS_MODULE_PATHS = [
+    WEBSITE_MODELS_MODULE_PATH, APPS_SEARCH_FILTER_SORT_MODELS_MODULE_PATH, APPS_ADDRESS_MODELS_MODULE_PATH,
+    APPS_EMAIL_MANAGER_MODELS_MODULE_PATH, APPS_STAFF_MEMBER_MANAGER_MODELS_MODULE_PATH,
+    APPS_ACCOUNT_MANAGER_MODELS_MODULE_PATH
+]
+
+
+# Used with load_fixtures.py
+FIXTURE_LOAD_ORDER = [
+    # User data
+    "User", "StaffMember",
+
+    # Global stuff from website
+
+    # Account
+    "AccountType", "Account"
+
+# Everything that has app internal ordering
+
+]
 
 
 try:
     # Optional settings specific to the local system (for example, custom
-    # settings on a developer's system).  The file "settings_local.py" is
+    # settings on a developer's system).  The file "local_settings.py" is
     # excluded from version control.
-    from settings_local import *
-except ImportError:
-    pass
+    from .local_settings import *
+except ImportError as error:
+    print("Failed to import local_settings: " + str(error))

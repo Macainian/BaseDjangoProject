@@ -1,0 +1,58 @@
+{% extends "account_manager/base.html" %}
+
+{% load static bootstrap3 query_string notifications tooltip %}
+
+{% block extra_css_local %}
+{% endblock %}
+
+{% block extra_js_local %}
+    <script>
+        var default_pagination = {{ default_pagination }};
+        var filter_names = {{ filter_names|safe }};
+    </script>
+
+    <script src="{% static 'search_filter_sort/js/search_filter_sort.js' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block main_content %}
+    <h2> Accounts: {{ object_count }} </h2>
+
+    <a class="btn btn-success" href="{% url 'account_manager.edit' account_id='new' %}">
+        {% bootstrap_icon "plus" %} Create New Account
+    </a>
+
+    <button class="btn btn-danger" data-toggle="modal" data-target="#delete-accounts-modal"
+        {% if object_count == 0 %} disabled {% endif %}>
+        {% bootstrap_icon "trash" %} Delete Accounts
+    </button>
+    <br>
+    <br>
+
+    {% include "search_filter_sort/search_filter_sort.html" %}
+
+    <table class="table table-striped">
+        <tr>
+            {% include "search_filter_sort/checkbox_header.html" %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Username" col_type="username" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Type" col_type="type__name" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Address" is_sortable=False %}
+        </tr>
+
+        {% for account in object_list %}
+            <tr>
+                {% include "search_filter_sort/checkbox_row.html" with item_id=account.id %}
+                <td>
+                    <a href="{% url 'account_manager.details' account_id=account.id %}">
+                        {{ account.user.username }}
+                    </a>
+                </td>
+                <td>{{ account.type.name }}</td>
+                <td>{{ account.address|default:"" }}</td>
+            </tr>
+        {% empty %}
+        {% endfor %}
+    </table>
+
+    {% include "confirmation_modal.html" with name="delete-accounts" modal_header="Delete Accounts" modal_body="Are you sure you want to delete these accounts?" function='goto_new_url_via_checkboxes("'|add:delete_url|add:'");' confirmation_button_class="btn-danger" confirmation_button_icon="trash" %}
+    {% include "search_filter_sort/pagination_page_navigation.html" %}
+{% endblock %}

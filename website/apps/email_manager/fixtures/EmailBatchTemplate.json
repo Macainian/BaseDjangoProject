@@ -1,0 +1,56 @@
+[
+    {
+        "fields": {
+            "basic_message": "Blah",
+            "created_by": 2,
+            "creation_datetime": "2016-11-05T08:57:11.652Z",
+            "deletion_datetime": null,
+            "from_code": "Admin@YOURDOMAIN.com",
+            "html_code": "<p>Welcome to the team.</p>\n\n<p>Username = {{ staff_member.user.username }}<br />\nGenerated Password = {{ staff_member.generated_password }}<br />\n<a href=\"http://{{ request.META.HTTP_HOST }}\" target=\"_blank\">Login Link</a></p>\n",
+            "is_active": true,
+            "is_deleted": false,
+            "last_modified_datetime": "2016-11-06T09:08:22.963Z",
+            "name": "New Staff Member Invitation",
+            "subject_code": "Invitation to the website",
+            "updated_by": 2
+        },
+        "model": "email_manager.emailbatchtemplate",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "basic_message": "aaa",
+            "created_by": 2,
+            "creation_datetime": "2016-11-09T10:57:19.791Z",
+            "deletion_datetime": null,
+            "from_code": "Admin@YOURDOMAIN.com",
+            "html_code": "<p>Hello {{ account.user.username }},</p>\n\n<p>A password reset for your account was requested. To reset your password open the following link and create a new password:&nbsp; <a href=\"http://{{ reset_url }}\" target=\"_blank\">{{ reset_url }}</a></p>\n",
+            "is_active": true,
+            "is_deleted": false,
+            "last_modified_datetime": "2016-11-13T11:14:52.821Z",
+            "name": "Forgot Password",
+            "subject_code": "Password reset for your account",
+            "updated_by": 2
+        },
+        "model": "email_manager.emailbatchtemplate",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "basic_message": "aaa",
+            "created_by": 2,
+            "creation_datetime": "2016-11-20T00:54:48.308Z",
+            "deletion_datetime": null,
+            "from_code": "Admin@YOURDOMAIN.com",
+            "html_code": "<p>Hello {{ account.user.username }},</p>\n\n<p>Your username was requested. Please remember that you can log in with your email as well if you&#39;d like.</p>\n\n<p>Username: {{ account.user.username }}</p>\n",
+            "is_active": true,
+            "is_deleted": false,
+            "last_modified_datetime": "2016-11-20T01:16:57.144Z",
+            "name": "Forgot Username",
+            "subject_code": "Username for your account",
+            "updated_by": 2
+        },
+        "model": "email_manager.emailbatchtemplate",
+        "pk": 4
+    }
+]

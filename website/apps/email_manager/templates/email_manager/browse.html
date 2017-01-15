@@ -1,0 +1,60 @@
+{% extends "email_manager/base.html" %}
+
+{% load static bootstrap3 query_string notifications tooltip %}
+
+{% block extra_css_local %}
+{% endblock %}
+
+{% block extra_js_local %}
+    <script>
+        var default_pagination = {{ default_pagination }};
+        var filter_names = {{ filter_names|safe }};
+    </script>
+
+    <script src="{% static 'search_filter_sort/js/search_filter_sort.js' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block main_content %}
+    <h2> Email Batches: {{ object_count }} </h2>
+
+{#    <a class="btn btn-success" href="{% url 'email_manager.edit' email_id='new' %}">#}
+{#        {% bootstrap_icon "plus" %} Create New Email#}
+{#    </a>#}
+{##}
+{#    <button class="btn btn-danger" data-toggle="modal" data-target="#delete-emails-modal"#}
+{#        {% if object_count == 0 %} disabled {% endif %}>#}
+{#        {% bootstrap_icon "trash" %} Delete Emails#}
+{#    </button>#}
+
+    <a class="btn btn-success" href="{% url 'email_manager.email_batch_template_editor' %}">
+        {% bootstrap_icon "envelope" %} Email Batch Template Editor
+    </a>
+    <br>
+    <br>
+
+    {% include "search_filter_sort/search_filter_sort.html" %}
+
+    <table class="table table-striped">
+        <tr>
+            {% include "search_filter_sort/checkbox_header.html" %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Type" col_type="type__name" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Status" col_type="status__name" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Template" col_type="template__name" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Created By" col_type="created_by__username" is_sortable=True %}
+        </tr>
+
+        {% for email_batch in object_list %}
+            <tr>
+                {% include "search_filter_sort/checkbox_row.html" with item_id=email_batch.id %}
+                <td>{{ email_batch.type.name|default:"" }}</td>
+                <td>{{ email_batch.status.name|default:"" }}</td>
+                <td>{{ email_batch.template.name|default:"" }}</td>
+                <td>{{ email_batch.created_by.user.username|default:"" }}</td>
+            </tr>
+        {% empty %}
+        {% endfor %}
+    </table>
+
+{#    {% include "confirmation_modal.html" with name="delete-emails" modal_header="Delete Emails" modal_body="Are you sure you want to delete these emails?" function='goto_new_url_via_checkboxes("'|add:delete_url|add:'");' confirmation_button_class="btn-danger" confirmation_button_icon="trash" %}#}
+    {% include "search_filter_sort/pagination_page_navigation.html" %}
+{% endblock %}

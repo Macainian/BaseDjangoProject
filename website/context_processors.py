@@ -1,5 +1,7 @@
 from django.conf import settings as django_settings
 
+from website import global_definitions
+
 
 def app_env(request):
     """ This function defines login and logout pages.
@@ -11,10 +13,11 @@ def app_env(request):
            "LOGOUT_URL": django_settings.LOGOUT_URL}
     # if hasattr(settings, "SERVER_MAINTENANCE_MESSAGE"):
     #      env["SERVER_MAINTENANCE_MESSAGE"] = settings.SERVER_MAINTENANCE_MESSAGE
+
     return env
 
 
 def settings(request):
     """ This context processor injects django settings to the template
     """
-    return {"SETTINGS": django_settings}
+    return {"SETTINGS": django_settings, "GLOBAL_DEFINITIONS": global_definitions}

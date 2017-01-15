@@ -1,0 +1,157 @@
+{% extends "email_manager/base.html" %}
+
+{% load staticfiles bootstrap3 query_string filters %}
+
+{% block extra_css_local %}
+{% endblock %}
+
+{% block extra_js_local %}
+    <script>
+        var get_email_batch_template_url = "{% url 'email_manager.get_email_batch_template' email_batch_template_id=0 %}"
+    </script>
+
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'email_manager/js/email_batch_template_edit.js' %}"></script>
+{% endblock %}
+
+{% block main_content %}
+    <form id="form" action="?{% query_string %}" method="post">{% csrf_token %}
+        <br>
+
+        <div id="email-batch-template-well-div" class="well well-lg">
+            <button type="button" class="btn btn-success" onclick="empty_email_batch_template_info();">
+                {% bootstrap_icon "plus" %} New Email Batch Template
+            </button>
+
+            <a class="btn btn-success" id="copy-email-batch-template-button" data-toggle="modal" data-target="#copy-email-batch-template-modal">
+                {% bootstrap_icon "duplicate" %} Copy Email Batch Template
+            </a>
+
+            {# todo: Change this to be the submit mechanism. This was stolen from wellbeing so that is why it is jacked up #}
+            <button type="button" class="btn btn-success" onclick="save_email_batch_template('{% url "email_manager.save_email_batch_template" email_batch_template_id=0 %}');">
+                {% bootstrap_icon "ok" %} Save Email Batch Template Changes
+            </button>
+            <br>
+            <br>
+
+            <div id="email-batch-template-selection-div">
+                <div class="row">
+                    <div class="col-md-2">
+                        <b> Email Batch Template: </b>
+                    </div>
+
+                    <div class="col-md-10">
+                        <select class="form-control" id="email-batch-template-select" name="email_batch_template_id">
+                            <option value=""></option>
+                            {% for email_batch_template in email_batch_templates %}
+                                <option value="{{ email_batch_template.id }}">
+                                    {{ email_batch_template.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well well-lg">
+            <div id="email-batch-template-edit-div">
+                <button type="button" class="btn btn-info"
+                    onclick="go_to_preview('{% url "email_manager.get_email_preview" %}');">
+                    {% bootstrap_icon "eye-open" %} See Preview
+                </button>
+                <br>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <b> Template Name: </b>
+                    </div>
+
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="email-batch-template-name-text" onchange="show_copy_email_batch_template_warning_message();" />
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <b> From Code: </b>
+                    </div>
+
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="from-code-text" onchange="show_copy_email_batch_template_warning_message();" />
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <b> Subject Code: </b>
+                    </div>
+
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="subject-code-text" onchange="show_copy_email_batch_template_warning_message();" />
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <b> Basic Message: </b>
+                    </div>
+
+                    <div class="col-md-10">
+                        <textarea class="form-control" id="basic-message-textarea" onchange="show_copy_email_batch_template_warning_message();" rows="4"></textarea>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <b> Email Html: </b>
+                    </div>
+
+                    <div class="col-md-10">
+                        <textarea class="form-control" id="html-code-textarea" onchange="show_copy_email_batch_template_warning_message();" cols="80" rows="100"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="email-batch-template-preview-div" style="display: none;">
+                <button type="button" class="btn btn-info" onclick="go_to_edit();">
+                    {% bootstrap_icon "edit" %} Back to Edit
+                </button>
+                <br>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <b> Test Subject: </b>
+                    </div>
+
+                    <div class="col-md-10">
+                        <select class="form-control">
+                            {% for subject in subjects %}
+                                <option value="{{ subject.id }}">
+                                    {{ subject.first_name|default:"" }} {{ subject.last_name|default:"" }} ({{ subject.subjectID|default:"" }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #cccccc;">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="email-preview-div"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </form>
+
+    {% include "email_manager/copy_email_batch_template_modal.html" %}
+{% endblock %}

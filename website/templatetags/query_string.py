@@ -1,6 +1,6 @@
 from django import template
-register = template.Library()
 
+register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
@@ -16,9 +16,10 @@ def query_string(context):
     """
 
     request = context["request"]
-    query_string = request.GET.copy()
+    the_query_string = request.GET.copy()
 
-    return query_string.urlencode()
+    return the_query_string.urlencode()
+
 
 @register.simple_tag(takes_context=True)
 def query_string_replace(context, field, value):
@@ -37,8 +38,8 @@ def query_string_replace(context, field, value):
     """
 
     request = context["request"]
-    query_string = request.GET.copy()
+    the_query_string = request.GET.copy()
 
-    query_string[field] = value
+    the_query_string[field] = value
 
-    return query_string.urlencode()
+    return the_query_string.urlencode()

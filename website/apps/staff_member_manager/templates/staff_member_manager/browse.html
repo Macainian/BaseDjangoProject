@@ -1,0 +1,94 @@
+{% extends "staff_member_manager/base.html" %}
+
+{% load static bootstrap3 query_string notifications tooltip %}
+
+{% block extra_css_local %}
+{% endblock %}
+
+{% block extra_js_local %}
+    <script>
+        var default_pagination = {{ default_pagination }};
+        var filter_names = {{ filter_names|safe }};
+    </script>
+
+    <script src="{% static 'staff_member_manager/js/set_active_staff_and_superuser.js' %}" type="text/javascript"></script>
+    <script src="{% static 'search_filter_sort/js/search_filter_sort.js' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block main_content %}
+    <h2> StaffMembers: {{ object_count }} </h2>
+
+    <a class="btn btn-success" href="{% url 'staff_member_manager.edit' staff_member_id='new' %}">
+        {% bootstrap_icon "plus" %} Create New StaffMember
+    </a>
+
+    <button class="btn btn-danger" data-toggle="modal" data-target="#delete-staff-members-modal"
+        {% if object_count == 0 %} disabled {% endif %}>
+        {% bootstrap_icon "trash" %} Delete StaffMembers
+    </button>
+    <br>
+    <br>
+
+    {{ create_staff_member_fixture_command }}
+
+    {% include "search_filter_sort/search_filter_sort.html" %}
+
+    <table class="table table-striped">
+        <tr>
+            {% include "search_filter_sort/checkbox_header.html" %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Username" col_type="username" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Name" col_type="last_name" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Email" col_type="email" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Datetime Joined" col_type="user__date_joined" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Created By" col_type="created_by__user__username" is_sortable=True %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Is Active" is_sortable=False %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Is Staff" is_sortable=False %}
+            {% include "search_filter_sort/sortable_col.html" with col_title="Is SuperUser" is_sortable=False %}
+        </tr>
+
+        {% for staff_member in object_list %}
+            <tr>
+                {% include "search_filter_sort/checkbox_row.html" with item_id=staff_member.id %}
+
+                <td>
+                    <a href="{% url 'staff_member_manager.details' staff_member_id=staff_member.id %}">
+                        {{ staff_member.user.username|default:"" }}
+                    </a>
+                </td>
+
+                <td>{{ staff_member.user.first_name|default:"" }} {{ staff_member.user.last_name|default:"" }}</td>
+                <td>{{ staff_member.user.email|default:"" }}</td>
+                <td>{{ staff_member.user.date_joined|default:"" }}</td>
+                <td>{{ staff_member.created_by.user.username|default:"GOD" }}</td>
+
+                <td>
+                    <input type="checkbox" id="{{ staff_member.id }}-is-active-checkbox"
+                        onclick="set_is_active('{% url "staff_member_manager.set_is_active" %}', '{{ staff_member.user.username }}', '{{ staff_member.id }}');"
+                        {% if staff_member.user.is_active %} checked {% endif %}
+                        {% if staff_member.user.username == request.user.username %} disabled {% endif %}
+                    />
+                </td>
+
+                <td>
+                    <input type="checkbox" id="{{ staff_member.id }}-is-staff-checkbox"
+                        onclick="set_is_staff('{% url "staff_member_manager.set_is_staff" %}', '{{ staff_member.user.username }}', '{{ staff_member.id }}');"
+                        {% if staff_member.user.is_staff %} checked {% endif %}
+                        {% if staff_member.user.username == request.user.username %} disabled {% endif %}
+                    />
+                </td>
+
+                <td>
+                    <input type="checkbox" id="{{ staff_member.id }}-is-superuser-checkbox"
+                        onclick="set_is_superuser('{% url "staff_member_manager.set_is_superuser" %}', '{{ staff_member.user.username }}', '{{ staff_member.id }}');"
+                        {% if staff_member.user.is_superuser %} checked {% endif %}
+                        {% if staff_member.user.username == request.user.username %} disabled {% endif %}
+                    />
+                </td>
+            </tr>
+        {% empty %}
+        {% endfor %}
+    </table>
+
+    {% include "confirmation_modal.html" with name="delete-staff-members" modal_header="Delete Staff Members" modal_body="Are you sure you want to delete these staff members?" function='goto_new_url_via_checkboxes("'|add:delete_url|add:'");' confirmation_button_class="btn-danger" confirmation_button_icon="trash" %}
+    {% include "search_filter_sort/pagination_page_navigation.html" %}
+{% endblock %}

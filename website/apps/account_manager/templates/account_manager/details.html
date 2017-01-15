@@ -1,0 +1,53 @@
+{% extends "account_manager/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block extra_css_local %}
+{% endblock %}
+
+{% block extra_js_local %}
+{% endblock %}
+
+{% block main_content %}
+{#    <br>#}
+{#    <div class="row">#}
+{#        <div class="col-md-1">#}
+{#            <button type="button" class="btn btn-info"#}
+{#                onclick="location.href='{% url "group_manager.edit" group_id=group.id %}';">#}
+{#                {% bootstrap_icon "edit" %} Edit#}
+{#            </button>#}
+{#        </div>#}
+{#    </div>#}
+    <br>
+
+    <div class="row">
+        <div class="col-md-5">
+            <table class="table table-striped">
+                <tr>
+                    <th>Account ID:</th>
+                    <td>{{ account.id }}</td>
+                </tr>
+
+                <tr>
+                    <th>Username:</th>
+                    <td>{{ account.user.username }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ account.user.email }}</td>
+                </tr>
+
+                <tr>
+                    <th>Name:</th>
+                    <td>{{ account.user.first_name|default:"" }} {{ account.user.last_name|default:"" }}</td>
+                </tr>
+
+                <tr>
+                    <th>Address:</th>
+                    <td>{{ account.address|default:"" }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
