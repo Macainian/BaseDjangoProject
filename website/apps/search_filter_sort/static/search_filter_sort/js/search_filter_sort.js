@@ -35,7 +35,7 @@ $(document).ready(function()
 
         if (event.keyCode == 13 && page_number_text.is(":focus"))
         {
-            change_page(page_number_text.val());
+            goto_page(page_number_text.val());
         }
     });
 
