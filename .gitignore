@@ -58,6 +58,7 @@ target/
 
 # Pycharm project files
 .idea
-
+website/local_settings.py
+website/local_settings.py~
 
 db.sqlite3
